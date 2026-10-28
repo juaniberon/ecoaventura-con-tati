@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecoaventura — Salvemos el planeta</title>
+<style>
+:root{--green:#2c9c69;--dark:#174c3a;--cream:#fff9e8;--blue:#bdeeff;--yellow:#ffdf67;--pink:#ffb8c8}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;background:linear-gradient(#bceeff,#e9fbff);color:#173e35;min-height:100vh}
+button{font:inherit;cursor:pointer;border:0;border-radius:18px;padding:12px 18px;font-weight:800;box-shadow:0 4px 0 #00000018;transition:transform .12s}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 #00000018}
+button:focus-visible,[tabindex]:focus-visible{outline:4px solid #ff9f1c;outline-offset:3px}
+.app{max-width:1050px;margin:auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-size:clamp(1.2rem,3vw,2rem);font-weight:1000;color:var(--dark)}
+.logo{font-size:2.3rem}
+.pill{background:#fff;padding:9px 14px;border-radius:999px;font-weight:800}
+.screen{display:none}.screen.active{display:block}
+.hero{background:#fffdf2;border:4px solid white;border-radius:30px;padding:clamp(18px,4vw,36px);margin-top:18px;box-shadow:0 8px 0 #174c3a15;text-align:center}
+h1{font-size:clamp(2rem,6vw,4rem);margin:8px 0;color:#19875a;line-height:1.05}
+.subtitle{font-size:clamp(1rem,2.5vw,1.35rem);line-height:1.5}
+.big-earth{font-size:clamp(5rem,15vw,9rem);filter:drop-shadow(0 5px 0 #00000012);margin:6px}
+.primary{background:#ffcf43;color:#513d00;font-size:1.15rem;padding:15px 25px}
+.secondary{background:#d9f6e7;color:#16583b}
+.danger{background:#ffe0e5;color:#852e42}
+.row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.tiny{font-size:.9rem;opacity:.8}
+.game-head{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin:18px 0}
+.progress{height:13px;background:#ffffffb8;border-radius:99px;overflow:hidden;flex:1;min-width:120px}
+.progress span{display:block;height:100%;width:0;background:#32a86e;transition:width .3s}
+.prompt{background:#fff;border-radius:22px;padding:16px;text-align:center;font-size:clamp(1.25rem,3vw,1.8rem);font-weight:900;box-shadow:0 5px 0 #174c3a12}
+.play-area{display:grid;grid-template-columns:1fr 1.3fr;gap:16px;margin-top:16px}
+@media(max-width:680px){.play-area{grid-template-columns:1fr}.bins{order:2}.item-panel{order:1}}
+.item-panel{background:#fffdf2;border:3px solid white;border-radius:26px;padding:18px;text-align:center;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.item-emoji{font-size:clamp(5rem,15vw,8rem);line-height:1.2;user-select:none}
+.item-name{font-size:1.35rem;font-weight:1000;margin:8px}
+.bins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-content:stretch}
+.bin{min-height:150px;padding:12px 6px;border:4px solid white;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#143d35}
+.bin .bin-icon{font-size:clamp(2.5rem,7vw,4rem)}
+.bin strong{font-size:1.05rem}.bin small{font-size:.82rem;margin-top:4px}
+.bin.paper{background:#cce7ff}.bin.plastic{background:#c9f2d6}.bin.glass{background:#d8d0ff}.bin.other{background:#ffe2a6}
+.bin:hover{transform:translateY(-2px)}
+.feedback{min-height:56px;margin-top:14px;background:#ffffffbd;border-radius:18px;padding:13px;text-align:center;font-weight:900;font-size:1.1rem}
+.end-icon{font-size:6rem}
+footer{text-align:center;padding:20px 0 10px;font-size:.85rem;opacity:.75}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="brand"><span class="logo">🌎</span><span>Ecoaventura</span></div>
+ <div class="pill">♻️ ¡Pequeños guardianes!</div>
+</header>
+
+<section id="home" class="screen active">
+ <div class="hero">
+  <div class="big-earth" aria-hidden="true">🌎</div>
+  <h1>¡Salvemos el planeta!</h1>
+  <p class="subtitle">Ayudá a Eco a separar los residuos y a cuidar nuestro hogar.<br>¡Cada buena elección hace sonreír a la Tierra!</p>
+  <div class="row">
+   <button class="primary" id="startBtn">▶ ¡A jugar!</button>
+   <button class="secondary" id="howBtn">❓ ¿Cómo se juega?</button>
+  </div>
+  <p class="tiny">Para jugar con ayuda de una persona adulta. No hace falta instalar nada.</p>
+ </div>
+ <div id="how" class="hero hidden">
+  <h2>¿Cómo se juega?</h2>
+  <p class="subtitle">1. Mirá el residuo que aparece.<br>2. Elegí el contenedor que corresponda.<br>3. ¡Sumá estrellas y aprendé a reciclar!</p>
+  <p class="tiny">En la vida real, las reglas de separación pueden cambiar según la ciudad. Si tenés dudas, preguntá a una persona adulta.</p>
+  <button class="secondary" id="closeHow">¡Entendido!</button>
+ </div>
+</section>
+
+<section id="game" class="screen">
+ <div class="game-head">
+  <button class="secondary" id="homeBtn">⌂ Inicio</button>
+  <div class="pill" id="roundLabel">Residuo 1 de 10</div>
+  <div class="pill" id="scoreLabel">⭐ 0</div>
+  <div class="progress" aria-label="Progreso"><span id="progressBar"></span></div>
+ </div>
+ <div class="prompt" id="prompt" aria-live="polite">¿Dónde va este residuo?</div>
+ <div class="play-area">
+  <div class="item-panel">
+   <div class="item-emoji" id="itemEmoji">📰</div>
+   <div class="item-name" id="itemName">Diario</div>
+   <div class="tiny">Elegí un contenedor</div>
+  </div>
+  <div class="bins" id="bins">
+   <button class="bin paper" data-type="paper"><span class="bin-icon">📘</span><strong>Papel y cartón</strong><small>cajas, diarios</small></button>
+   <button class="bin plastic" data-type="plastic"><span class="bin-icon">🧴</span><strong>Plástico</strong><small>botellas limpias</small></button>
+   <button class="bin glass" data-type="glass"><span class="bin-icon">🍾</span><strong>Vidrio</strong><small>frascos y botellas</small></button>
+   <button class="bin other" data-type="other"><span class="bin-icon">🍌</span><strong>Orgánicos</strong><small>restos de fruta</small></button>
+  </div>
+ </div>
+ <div class="feedback" id="feedback" aria-live="polite">¡Vos podés!</div>
+ <div class="row"><button id="nextBtn" class="primary hidden">Siguiente ➜</button></div>
+</section>
+
+<section id="finish" class="screen">
+ <div class="hero">
+  <div class="end-icon" id="finishIcon">🏆</div>
+  <h1 id="finishTitle">¡Lo lograste!</h1>
+  <p class="subtitle" id="finishText">¡Sos un guardián del planeta!</p>
+  <div class="big-earth">🌍✨</div>
+  <div class="pill" id="finalScore">⭐ 0 de 10</div>
+  <div class="row">
+   <button class="primary" id="againBtn">🔄 Jugar otra vez</button>
+   <button class="secondary" id="backBtn">⌂ Inicio</button>
+  </div>
+ </div>
+</section>
+<footer>Ecoaventura · Juego educativo de demostración · Hecho para aprender jugando 🌱</footer>
+</div>
+<script>
+const items = [
+ {emoji:"📰",name:"Diario",type:"paper",good:"¡Muy bien! El papel puede reciclarse si está limpio y seco.",hint:"Los diarios son de papel."},
+ {emoji:"📦",name:"Caja de cartón",type:"paper",good:"¡Excelente! El cartón limpio puede reciclarse.",hint:"Las cajas están hechas de cartón."},
+ {emoji:"🧴",name:"Botella de plástico",type:"plastic",good:"¡Sí! Una botella plástica limpia puede recuperarse.",hint:"Mirá el símbolo de la botella: es de plástico."},
+ {emoji:"🥤",name:"Vaso de plástico",type:"plastic",good:"¡Bien pensado! Algunos vasos plásticos se reciclan según las reglas locales.",hint:"Este juego lo considera plástico reciclable."},
+ {emoji:"🍾",name:"Botella de vidrio",type:"glass",good:"¡Genial! El vidrio puede reciclarse muchas veces.",hint:"Las botellas de vidrio van con el vidrio."},
+ {emoji:"🫙",name:"Frasco de vidrio",type:"glass",good:"¡Muy bien! Un frasco de vidrio puede reciclarse.",hint:"Este frasco es de vidrio."},
+ {emoji:"🍌",name:"Cáscara de banana",type:"other",good:"¡Correcto! Los restos de fruta pueden convertirse en compost.",hint:"La cáscara viene de una fruta."},
+ {emoji:"🍎",name:"Corazón de manzana",type:"other",good:"¡Excelente! Los restos de frutas son residuos orgánicos.",hint:"Es un resto de comida."},
+ {emoji:"📚",name:"Libro viejo de papel",type:"paper",good:"¡Muy bien! El papel y el cartón se pueden recuperar.",hint:"Las páginas son de papel."},
+ {emoji:"📄",name:"Hoja de papel",type:"paper",good:"¡Muy bien! El papel limpio y seco puede recuperarse.",hint:"La hoja está hecha de papel."}
+];
+const typeNames={paper:"Papel y cartón",plastic:"Plástico",glass:"Vidrio",other:"Orgánicos"};
+let order=[], index=0, score=0, answered=false;
+const $=id=>document.getElementById(id);
+function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
+function startGame(){order=shuffle(items);index=0;score=0;showScreen("game");renderItem();}
+function renderItem(){
+ answered=false;const item=order[index];
+ $("roundLabel").textContent=`Residuo ${index+1} de ${order.length}`;
+ $("scoreLabel").textContent=`⭐ ${score}`;
+ $("progressBar").style.width=`${index/order.length*100}%`;
+ $("itemEmoji").textContent=item.emoji;$("itemName").textContent=item.name;
+ $("prompt").textContent="¿Dónde va este residuo?";
+ $("feedback").textContent="¡Vos podés! Mirá bien el dibujo.";
+ $("nextBtn").classList.add("hidden");
+ document.querySelectorAll(".bin").forEach(b=>{b.disabled=false;b.style.opacity="1";});
+}
+function choose(type){
+ if(answered)return;answered=true;
+ const item=order[index], correct=type===item.type;
+ document.querySelectorAll(".bin").forEach(b=>{b.disabled=true;if(b.dataset.type!==type)b.style.opacity=".72";});
+ if(correct){score++;$("feedback").textContent="⭐ "+item.good;$("prompt").textContent="¡Muy bien, guardián!";} 
+ else {$("feedback").textContent="🌱 "+item.hint+" ¡Probemos aprender juntos!";$("prompt").textContent="¡No pasa nada! Aprender es parte del juego.";}
+ $("scoreLabel").textContent=`⭐ ${score}`;$("progressBar").style.width=`${(index+1)/order.length*100}%`;
+ $("nextBtn").textContent=index===order.length-1?"Ver resultado 🏆":"Siguiente ➜";
+ $("nextBtn").classList.remove("hidden");
+}
+function nextItem(){if(index<order.length-1){index++;renderItem();}else finishGame();}
+function finishGame(){
+ showScreen("finish");$("finalScore").textContent=`⭐ ${score} de ${order.length} respuestas correctas`;
+ if(score>=8){$("finishIcon").textContent="🏆";$("finishTitle").textContent="¡Súper guardián!";$("finishText").textContent="¡Ayudaste muchísimo al planeta! Seguí cuidándolo todos los días.";}
+ else if(score>=5){$("finishIcon").textContent="🌟";$("finishTitle").textContent="¡Muy buen trabajo!";$("finishText").textContent="Cada vez sabés más. ¡Volvé a jugar y seguí aprendiendo!";}
+ else {$("finishIcon").textContent="🌱";$("finishTitle").textContent="¡Buen comienzo!";$("finishText").textContent="Practicar también es aprender. ¡Intentémoslo otra vez juntos!";}
+}
+$("startBtn").addEventListener("click",startGame);
+$("howBtn").addEventListener("click",()=>$("how").classList.remove("hidden"));
+$("closeHow").addEventListener("click",()=>$("how").classList.add("hidden"));
+$("nextBtn").addEventListener("click",nextItem);
+$("againBtn").addEventListener("click",startGame);
+$("backBtn").addEventListener("click",()=>showScreen("home"));
+$("homeBtn").addEventListener("click",()=>showScreen("home"));
+document.querySelectorAll(".bin").forEach(b=>b.addEventListener("click",()=>choose(b.dataset.type)));
+</script>
+</body>
+</html>
